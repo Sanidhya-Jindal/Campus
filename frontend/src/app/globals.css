@@ -1,0 +1,134 @@
+@import "tailwindcss";
+@import 'react-time-picker/dist/TimePicker.css';
+@import 'react-clock/dist/Clock.css';
+@import 'leaflet/dist/leaflet.css';
+
+/*
+  Palette: Ronas IT "Logistics Fleet Management" shot.
+  #040404 graphite · #928B85 warm grey · #F5EEE1 cream · #6D9C7B green · #5C5C56 warm dark.
+  The shot's sage #BFC2AD is replaced by --accent below.
+*/
+:root {
+  --ink: #040404;         /* page background */
+  --surface: #0d0d0c;     /* cards, lifted off the page */
+  --surface-2: #171716;   /* inputs, inner wells */
+  --line: #5c5c56;        /* borders, dividers */
+  --cream: #f5eee1;       /* primary text, light fills */
+  --muted: #928b85;       /* secondary text */
+  --green: #6d9c7b;       /* accent / healthy */
+  --accent: #c9a227;      /* replaces the shot's sage #BFC2AD */
+  --danger: #b4553f;      /* needed for alerts; sits with the warm palette */
+
+  --background: var(--ink);
+  --foreground: var(--cream);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-ink: var(--ink);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-cream: var(--cream);
+  --color-muted: var(--muted);
+  --color-green: var(--green);
+  --color-accent: var(--accent);
+  --color-danger: var(--danger);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/*
+  The pages were built on Tailwind's stock slate/blue/cyan ramps. Rather than
+  rewrite ~900 class names by hand, the ramps themselves are re-pointed at the
+  palette, so every existing utility renders in the new scheme:
+
+    slate/gray/zinc/neutral -> warm graphite (#040404 -> #F5EEE1)
+    blue/cyan/sky/indigo/violet/purple/teal/amber/yellow -> gold accent
+    green/emerald -> #6D9C7B
+    red/rose/orange -> #B4553F
+*/
+@theme {
+  /* neutrals: warm graphite ramp */
+  --color-slate-950: #040404;  --color-gray-950: #040404;  --color-zinc-950: #040404;  --color-neutral-950: #040404;
+  --color-slate-900: #0d0d0c;  --color-gray-900: #0d0d0c;  --color-zinc-900: #0d0d0c;  --color-neutral-900: #0d0d0c;
+  --color-slate-800: #171716;  --color-gray-800: #171716;  --color-zinc-800: #171716;  --color-neutral-800: #171716;
+  --color-slate-700: #262521;  --color-gray-700: #262521;  --color-zinc-700: #262521;  --color-neutral-700: #262521;
+  --color-slate-600: #3d3c37;  --color-gray-600: #3d3c37;  --color-zinc-600: #3d3c37;  --color-neutral-600: #3d3c37;
+  --color-slate-500: #5c5c56;  --color-gray-500: #5c5c56;  --color-zinc-500: #5c5c56;  --color-neutral-500: #5c5c56;
+  --color-slate-400: #928b85;  --color-gray-400: #928b85;  --color-zinc-400: #928b85;  --color-neutral-400: #928b85;
+  --color-slate-300: #aaa49d;  --color-gray-300: #aaa49d;  --color-zinc-300: #aaa49d;  --color-neutral-300: #aaa49d;
+  --color-slate-200: #c9c3b8;  --color-gray-200: #c9c3b8;  --color-zinc-200: #c9c3b8;  --color-neutral-200: #c9c3b8;
+  --color-slate-100: #e3ddd1;  --color-gray-100: #e3ddd1;  --color-zinc-100: #e3ddd1;  --color-neutral-100: #e3ddd1;
+  --color-slate-50:  #f5eee1;  --color-gray-50:  #f5eee1;  --color-zinc-50:  #f5eee1;  --color-neutral-50:  #f5eee1;
+
+  /* accents: gold (replaces the shot's sage #BFC2AD) */
+  --color-blue-950: #2b2208; --color-cyan-950: #2b2208; --color-sky-950: #2b2208; --color-indigo-950: #2b2208; --color-violet-950: #2b2208; --color-purple-950: #2b2208; --color-teal-950: #2b2208; --color-amber-950: #2b2208; --color-yellow-950: #2b2208;
+  --color-blue-900: #453611; --color-cyan-900: #453611; --color-sky-900: #453611; --color-indigo-900: #453611; --color-violet-900: #453611; --color-purple-900: #453611; --color-teal-900: #453611; --color-amber-900: #453611; --color-yellow-900: #453611;
+  --color-blue-800: #6a5219; --color-cyan-800: #6a5219; --color-sky-800: #6a5219; --color-indigo-800: #6a5219; --color-violet-800: #6a5219; --color-purple-800: #6a5219; --color-teal-800: #6a5219; --color-amber-800: #6a5219; --color-yellow-800: #6a5219;
+  --color-blue-700: #8a6c20; --color-cyan-700: #8a6c20; --color-sky-700: #8a6c20; --color-indigo-700: #8a6c20; --color-violet-700: #8a6c20; --color-purple-700: #8a6c20; --color-teal-700: #8a6c20; --color-amber-700: #8a6c20; --color-yellow-700: #8a6c20;
+  --color-blue-600: #a8871f; --color-cyan-600: #a8871f; --color-sky-600: #a8871f; --color-indigo-600: #a8871f; --color-violet-600: #a8871f; --color-purple-600: #a8871f; --color-teal-600: #a8871f; --color-amber-600: #a8871f; --color-yellow-600: #a8871f;
+  --color-blue-500: #c9a227; --color-cyan-500: #c9a227; --color-sky-500: #c9a227; --color-indigo-500: #c9a227; --color-violet-500: #c9a227; --color-purple-500: #c9a227; --color-teal-500: #c9a227; --color-amber-500: #c9a227; --color-yellow-500: #c9a227;
+  --color-blue-400: #d9b53f; --color-cyan-400: #d9b53f; --color-sky-400: #d9b53f; --color-indigo-400: #d9b53f; --color-violet-400: #d9b53f; --color-purple-400: #d9b53f; --color-teal-400: #d9b53f; --color-amber-400: #d9b53f; --color-yellow-400: #d9b53f;
+  --color-blue-300: #e3c765; --color-cyan-300: #e3c765; --color-sky-300: #e3c765; --color-indigo-300: #e3c765; --color-violet-300: #e3c765; --color-purple-300: #e3c765; --color-teal-300: #e3c765; --color-amber-300: #e3c765; --color-yellow-300: #e3c765;
+  --color-blue-200: #edd996; --color-cyan-200: #edd996; --color-sky-200: #edd996; --color-indigo-200: #edd996; --color-violet-200: #edd996; --color-purple-200: #edd996; --color-teal-200: #edd996; --color-amber-200: #edd996; --color-yellow-200: #edd996;
+  --color-blue-100: #f4e9c4; --color-cyan-100: #f4e9c4; --color-sky-100: #f4e9c4; --color-indigo-100: #f4e9c4; --color-violet-100: #f4e9c4; --color-purple-100: #f4e9c4; --color-teal-100: #f4e9c4; --color-amber-100: #f4e9c4; --color-yellow-100: #f4e9c4;
+  --color-blue-50:  #faf4e3; --color-cyan-50:  #faf4e3; --color-sky-50:  #faf4e3; --color-indigo-50:  #faf4e3; --color-violet-50:  #faf4e3; --color-purple-50:  #faf4e3; --color-teal-50:  #faf4e3; --color-amber-50:  #faf4e3; --color-yellow-50:  #faf4e3;
+
+  /* healthy / success */
+  --color-green-950: #10190f; --color-emerald-950: #10190f;
+  --color-green-900: #1e2c23; --color-emerald-900: #1e2c23;
+  --color-green-800: #2b4033; --color-emerald-800: #2b4033;
+  --color-green-700: #3d5a48; --color-emerald-700: #3d5a48;
+  --color-green-600: #55795f; --color-emerald-600: #55795f;
+  --color-green-500: #6d9c7b; --color-emerald-500: #6d9c7b;
+  --color-green-400: #86b291; --color-emerald-400: #86b291;
+  --color-green-300: #a3c7ab; --color-emerald-300: #a3c7ab;
+  --color-green-200: #c2dcc7; --color-emerald-200: #c2dcc7;
+  --color-green-100: #dfeee3; --color-emerald-100: #dfeee3;
+  --color-green-50:  #f0f7f2; --color-emerald-50:  #f0f7f2;
+
+  /* alerts / danger */
+  --color-red-950: #200d07; --color-rose-950: #200d07; --color-orange-950: #200d07;
+  --color-red-900: #35180f; --color-rose-900: #35180f; --color-orange-900: #35180f;
+  --color-red-800: #4d2417; --color-rose-800: #4d2417; --color-orange-800: #4d2417;
+  --color-red-700: #6f3524; --color-rose-700: #6f3524; --color-orange-700: #6f3524;
+  --color-red-600: #94452f; --color-rose-600: #94452f; --color-orange-600: #94452f;
+  --color-red-500: #b4553f; --color-rose-500: #b4553f; --color-orange-500: #b4553f;
+  --color-red-400: #c97460; --color-rose-400: #c97460; --color-orange-400: #c97460;
+  --color-red-300: #dc9885; --color-rose-300: #dc9885; --color-orange-300: #dc9885;
+  --color-red-200: #ecc0b3; --color-rose-200: #ecc0b3; --color-orange-200: #ecc0b3;
+  --color-red-100: #f6e0d8; --color-rose-100: #f6e0d8; --color-orange-100: #f6e0d8;
+  --color-red-50:  #fbf0eb; --color-rose-50:  #fbf0eb; --color-orange-50:  #fbf0eb;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  /* was: Arial — which overrode the Geist font loaded in layout.tsx */
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Leaflet sits on a dark page; strip its light chrome. */
+.leaflet-container {
+  background: var(--ink);
+  font-family: inherit;
+}
+.leaflet-control-attribution {
+  background: rgba(4, 4, 4, 0.7) !important;
+  color: var(--muted) !important;
+  font-size: 10px !important;
+}
+.leaflet-control-attribution a {
+  color: var(--muted) !important;
+}
+.leaflet-bar,
+.leaflet-bar a {
+  background: var(--surface) !important;
+  border-color: var(--line) !important;
+  color: var(--cream) !important;
+}
+.leaflet-bar a:hover {
+  background: var(--surface-2) !important;
+}

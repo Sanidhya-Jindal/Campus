@@ -1,0 +1,21 @@
+**/.git
+**/.venv
+**/venv
+**/__pycache__
+**/*.pyc
+**/node_modules
+**/.next
+**/.env
+**/.env.local
+**/staticfiles
+**/.DS_Store
+
+# 62MB of CSVs — loaded into Postgres via the import_* commands, not needed at runtime.
+Backend/Updated_Dataset.zip
+
+# Notebooks and docs
+AI/ipynb models/
+**/*.ipynb
+**/README.md
+DEPLOYMENT.md
+LICENSE
